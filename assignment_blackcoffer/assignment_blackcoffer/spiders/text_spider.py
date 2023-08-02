@@ -2,6 +2,7 @@ import scrapy
 import pandas as pd
 import os
 from assignment_blackcoffer.items import ArticleItem
+import re
 
 
 class TextSpiderSpider(scrapy.Spider):
@@ -30,32 +31,23 @@ class TextSpiderSpider(scrapy.Spider):
         for link in links:
             yield scrapy.Request(url=link, callback=self.parse)
 
-    # def parse(self, response):
-        # Your parsing logic here to extract the title and paragraphs
-        title_tdb = response.css('h1.tdb-title-text::text').get()
-        title_entry = response.css('h1.entry-title::text').get()
-        title = title_tdb if title_tdb else title_entry
-        paragraphs = response.css('div.td-post-content p::text').getall()
-
-        # Create an instance of the ArticleItem and populate its fields
-        article_item = ArticleItem()
-        article_item['title'] = title
-        article_item['content'] = paragraphs
-        article_item['url'] = response.url
-        # article_item['url'] = response.meta['url']
-
-        # Yield the ArticleItem
-        yield article_item
-
     def parse(self, response):
         # Your parsing logic here to extract the title and content
         title_tdb = response.css('h1.tdb-title-text::text').get()
         title_entry = response.css('h1.entry-title::text').get()
         title = title_tdb if title_tdb else title_entry
 
-        # Select all elements with text content (paragraphs, strong texts, list items, etc.)
-        content = response.css(
-            'div.td-post-content *:not(:empty)::text').getall()
+        # Select all elements with text content (including paragraphs, strong texts, list items, etc.)
+        content_elements = response.css('div.td-post-content *::text').getall()
+
+        # Process each text element and remove extra spaces and escape characters
+        content = []
+        for text in content_elements:
+            cleaned_text = re.sub(r'\s+', ' ', text).strip()
+            content.append(cleaned_text)
+
+        # Filter out empty strings
+        content = [text for text in content if text]
 
         # Create an instance of the ArticleItem and populate its fields
         article_item = ArticleItem()
