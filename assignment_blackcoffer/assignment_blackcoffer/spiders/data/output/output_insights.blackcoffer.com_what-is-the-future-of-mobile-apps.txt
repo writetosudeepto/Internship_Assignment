@@ -1,5 +1,3 @@
-What is the future of mobile apps?
-
 From what I have learned on the mobile apps development market recently, it is becoming harder for an Android or iOS developer to find a suitable and well-paying job in the market.
 Some major reasons include the increasing supply of mobile engineers, people generally stop downloading apps, and many more.
 In this article, I will go through a more detailed explanation of the recent trend mentioned above and my two cents on what mobile engineers could do to prepare themself for the upcoming challenge! and the future of mobile apps.

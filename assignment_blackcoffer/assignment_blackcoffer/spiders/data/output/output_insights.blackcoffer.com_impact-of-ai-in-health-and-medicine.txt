@@ -1,5 +1,3 @@
-Impact of AI in health and medicine
-
 AI allows those in training to go through naturalistic simulations in a way that simple computer-driven algorithms cannot. The advent of natural speech and the ability of an AI  computer to draw instantly on a large database of scenarios means the response to questions, decisions, or advice from a trainee can challenge in a way that humans cannot in health and medicine
 Wearable health trackers-like those from 
 , 

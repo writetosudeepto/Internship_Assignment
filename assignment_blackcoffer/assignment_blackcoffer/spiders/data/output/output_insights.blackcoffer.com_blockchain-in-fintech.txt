@@ -1,5 +1,3 @@
-Blockchain in Fintech
-
 Blockchain or the Distributed Ledger Technology has
 already been around for some time now. Cryptocurrencies like Bitcoin, based on
 the Blockchain technology, are making entry into the formal finance world and

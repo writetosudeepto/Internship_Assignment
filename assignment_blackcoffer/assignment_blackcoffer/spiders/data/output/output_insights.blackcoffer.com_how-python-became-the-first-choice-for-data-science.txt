@@ -1,5 +1,3 @@
-How Python became the first choice for Data Science.
-
 Data Science is gaining popularity exponentially over the past decade, and thanks to that we are now enjoying better products, recommendations, and smoother life. Data science is an interdisciplinary subject that includes statistics, math, IT, etc.
 Now there is so much to do in Data Science,  so we need an arrangement where all this can be accessible in one place. It will be very hectic to go to hundreds of different resources while doing analysis or building models. But don’t worry, PYTHON is there for you.
 Yes, you read it right, Python is a 

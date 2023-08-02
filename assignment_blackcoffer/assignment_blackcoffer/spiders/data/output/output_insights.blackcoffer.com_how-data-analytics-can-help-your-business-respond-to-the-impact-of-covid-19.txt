@@ -1,5 +1,3 @@
-How Data Analytics can help your business respond to the impact of COVID-19?
-
 Before we get into the whole discussion, let’s first discuss the basic working of data analysis.
  is defined as a process of cleaning, transforming, and modeling data to discover useful information for business decision-making.
 Using data analysis, we can extract useful information from the given data and then take corresponding decisions based upon the analyzed data.

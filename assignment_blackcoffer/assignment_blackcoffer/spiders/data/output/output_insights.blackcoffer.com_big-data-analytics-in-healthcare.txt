@@ -1,5 +1,3 @@
-Big Data Analytics in Healthcare
-
 Quality and affordable healthcare is a vision of all governments across the globe. The high cost of Medical service and lack of sufficient infrastructure is detrimental to this vision. In developed countries such as the U.S., reducing healthcare cost is an agenda point of all the politicians.  Even in India, affordable healthcare will be as important as 
 in the near future. 
 Technology can play a big role in reducing healthcare cost and making it more efficient. The vast quantity of data is available with Hospitals and insurance providers. Big data can play a big role in analyzing this data to produce actionable insight. Some of the benefits of using big data are as follows,

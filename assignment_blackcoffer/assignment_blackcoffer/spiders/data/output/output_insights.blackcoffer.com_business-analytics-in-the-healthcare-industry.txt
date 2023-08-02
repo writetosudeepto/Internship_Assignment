@@ -1,5 +1,3 @@
-Business Analytics In The Healthcare Industry
-
 Analytics is a statistical scientific process of discovering and presenting the meaningful patterns that can be found in data. While business analytics refers to the skills, technologies, applications, practices, computer programming and operations research for the continuous exploration of data to gain insight that drives business decisions.
 Business analytics technology is helping healthcare organizations regulate existing data to improve clinical and business operations. In addition to this, analytics help to identify the symptoms of diseases in preliminary stages itself along with suggesting possible remedies for the same without any need of the intervention of a human being. With the help of analytics and chatbots patient can now look for expert doctor advice in the comfort of their home free of charge in most of the cases with as easy accessibility as one-touch from your smartphones.
 According to

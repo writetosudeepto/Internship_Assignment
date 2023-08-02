@@ -1,5 +1,3 @@
-How Robo Human will Impact the Future?
-
 It’s the year 2060. An automaton in a Research Laboratory says to a Scientist, “Warning! Error Occurred Reformatting Hard Disk Now!” The scientist panics. Automaton says again,” Ha! Ha! Just Kidding! “.
 Funny Right. Before some of you say that this joke isn’t realistic, “How can an Automaton tell you a joke?” But what if I tell you in 2017, “Sofia” the robot made a joke on the show Good Morning Britain! Who thought computers could tell us a joke? Hard to believe? Well, the idea of giving computers human-enjoy thinking has now become a reality. Thanks to the technological advancement in AI in the last decade.
 Before diving deep into how AI can impact the future of work, let’s begin with the simple question: what’s AI? Artificial Intelligence provides machines the power to think from data. The machine uses the patterns and trends found in data and makes its decision, but cannot create thought beyond these patterns and trends.
