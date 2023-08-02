@@ -1,6 +1,7 @@
 import scrapy
 import pandas as pd
 import os
+from assignment_blackcoffer.items import ArticleItem
 
 
 class TextSpiderSpider(scrapy.Spider):
@@ -29,15 +30,38 @@ class TextSpiderSpider(scrapy.Spider):
         for link in links:
             yield scrapy.Request(url=link, callback=self.parse)
 
-    def parse(self, response):
-        url = response.url
-        # Your parsing logic here
-        # For example, if you want to extract the text content from <p> elements:
+    # def parse(self, response):
+        # Your parsing logic here to extract the title and paragraphs
+        title_tdb = response.css('h1.tdb-title-text::text').get()
+        title_entry = response.css('h1.entry-title::text').get()
+        title = title_tdb if title_tdb else title_entry
         paragraphs = response.css('div.td-post-content p::text').getall()
-        # Save the extracted text to a file named after the URL
-        filename = url.split("://", 1)[-1].replace("/", "_").strip("_")
-        output_folder = 'data/output'
-        os.makedirs(output_folder, exist_ok=True)
-        output_file = os.path.join(output_folder, f'output_{filename}.txt')
-        with open(output_file, 'w', encoding='utf-8') as f:
-            f.write('\n'.join(paragraphs))
+
+        # Create an instance of the ArticleItem and populate its fields
+        article_item = ArticleItem()
+        article_item['title'] = title
+        article_item['content'] = paragraphs
+        article_item['url'] = response.url
+        # article_item['url'] = response.meta['url']
+
+        # Yield the ArticleItem
+        yield article_item
+
+    def parse(self, response):
+        # Your parsing logic here to extract the title and content
+        title_tdb = response.css('h1.tdb-title-text::text').get()
+        title_entry = response.css('h1.entry-title::text').get()
+        title = title_tdb if title_tdb else title_entry
+
+        # Select all elements with text content (paragraphs, strong texts, list items, etc.)
+        content = response.css(
+            'div.td-post-content *:not(:empty)::text').getall()
+
+        # Create an instance of the ArticleItem and populate its fields
+        article_item = ArticleItem()
+        article_item['title'] = title
+        article_item['content'] = content
+        article_item['url'] = response.url
+
+        # Yield the ArticleItem
+        yield article_item
