@@ -5,3 +5,7 @@ ROBOTSTXT_OBEY = True
 ITEM_PIPELINES = {
     'assignment_blackcoffer.pipelines.SaveToFilePipeline': 1,
 }
+LOG_ENABLED = True
+# Set to the desired log level (DEBUG, INFO, WARNING, ERROR, or CRITICAL)
+LOG_LEVEL = 'DEBUG'
+LOG_FILE = 'scrapy.log'  # Specify the log file name (optional)
