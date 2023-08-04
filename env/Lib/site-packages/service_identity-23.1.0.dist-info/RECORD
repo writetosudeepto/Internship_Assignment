@@ -1,6 +1,7 @@
 service_identity-23.1.0.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
 service_identity-23.1.0.dist-info/METADATA,sha256=i8r1h7XYcK0VSWFfYeAJ6Tp5Nxz2L99r4Mf-yZDh11A,5534
 service_identity-23.1.0.dist-info/RECORD,,
+service_identity-23.1.0.dist-info/REQUESTED,sha256=47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU,0
 service_identity-23.1.0.dist-info/WHEEL,sha256=9QBuHhg6FNW7lppboF2vKVbCGTVzsFykgRQjjlajrhA,87
 service_identity-23.1.0.dist-info/licenses/LICENSE,sha256=UffGRxkOdNGfnyTxsZZFtCXrjzDwSRlgU2hr_xiFBc8,1119
 service_identity/__init__.py,sha256=fB3KSOcAy_Rnh2GIfLBGn7pb18gKhKA7P5nmR9XLJhI,1396
