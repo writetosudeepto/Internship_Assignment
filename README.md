@@ -18,7 +18,8 @@ Before running the Sentiment Analysis project, ensure you have the following sof
 1. Clone the repository to your local machine:
    git clone https://github.com/writetosudeepto/Internship_Assignment.git
 
-2. Navigate to the project directory:
+2. Navigate to the project directory
+   
    cd Internship_Assignment
    
 4. create a python vitual env and activate it (optional)
