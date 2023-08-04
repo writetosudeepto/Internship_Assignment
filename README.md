@@ -16,3 +16,8 @@ Before running the Sentiment Analysis project, ensure you have the following sof
 ## How to Run
 
 1. Clone the repository to your local machine:
+   git clone https://github.com/writetosudeepto/Internship_Assignment.git
+
+2. Navigate to the project directory:
+   cd assignment_blackcoffer
+
