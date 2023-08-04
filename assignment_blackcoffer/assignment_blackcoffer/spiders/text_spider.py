@@ -28,8 +28,9 @@ class TextSpiderSpider(scrapy.Spider):
         title_entry = response.css('h1.entry-title::text').get()
         title = title_tdb if title_tdb else title_entry
 
-        # Select all elements with text content (including paragraphs, strong texts, list items, etc.)
-        content_elements = response.css('div.td-post-content *::text').getall()
+        # Select all elements with text content inside HTML tags (excluding CSS-related content)
+        content_elements = response.css(
+            'div.td-post-content *:not(style)::text').extract()
 
         # Process each text element and remove extra spaces and escape characters
         content = []

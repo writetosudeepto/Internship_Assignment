@@ -22,7 +22,6 @@ class SaveToFilePipeline:
         )
 
     def load_stop_words(self):
-        # Replace 'path/to/your/StopWords' with the actual path to the folder containing Stop Words Lists
         base_path = os.path.abspath(os.path.dirname(__file__))
         # Construct the absolute path of the input CSV file
         stop_words_folder = os.path.join(
@@ -45,7 +44,6 @@ class SaveToFilePipeline:
         return words
 
     def load_master_dictionary(self, positive_file_path, negative_file_path):
-        # Replace 'path/to/your/MasterDictionary' with the actual path to the folder containing positive-words.txt and negative-words.txt
         with open(positive_file_path, 'r') as f:
             positive_word_list = f.read().splitlines()
         with open(negative_file_path, 'r') as f:
@@ -57,13 +55,10 @@ class SaveToFilePipeline:
         return positive_words, negative_words
 
     def is_complex_word(self, word):
-        # Implement your logic to check if a word is complex (contains more than two syllables)
-        # Here's a simple example using the NLTK library:
         syllables = self.calculate_syllables_per_word(word)
         return syllables > 2
 
     def calculate_syllables_per_word(self, word):
-        # Implement your logic to count the number of syllables in a word
         # Here's a simple example using a basic rule-based approach:
         vowels = "aeiouAEIOU"
         syllable_count = 0
@@ -84,23 +79,6 @@ class SaveToFilePipeline:
             syllable_count += 1
 
         return syllable_count
-
-    # def calculate_sentiment_scores(self, content):
-    #     words = content
-    #     positive_score = sum(
-    #         1 for word in words if word in self.positive_words)
-    #     negative_score = sum(
-    #         1 for word in words if word in self.negative_words)
-    #     polarity_score = (positive_score - negative_score) / \
-    #         ((positive_score + negative_score) + 0.000001)
-    #     subjectivity_score = (
-    #         positive_score + negative_score) / (len(words) + 0.000001)
-    #     return {
-    #         'positive_score': positive_score,
-    #         'negative_score': negative_score,
-    #         'polarity_score': polarity_score,
-    #         'subjectivity_score': subjectivity_score
-    #     }
 
     def calculate_sentiment_scores(self, content):
         words = content
@@ -143,7 +121,7 @@ class SaveToFilePipeline:
         # Step 3: Calculate the number of complex words
         complex_words = [
             word for word in words if self.is_complex_word(word)]
-        percentage_of_complex_words = len(complex_words) / len(words)
+        percentage_of_complex_words = len(complex_words) * 100 / len(words)
 
         # Step 4: Calculate the Fog Index
         fog_index = 0.4 * (average_sentence_length +
@@ -183,62 +161,61 @@ class SaveToFilePipeline:
         }
 
     def process_item(self, item, spider):
-        # Get the parent folder of the current directory (where the spiders folder is located)
-        parent_folder = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
-
-        # Construct the output folder path inside the parent folder
-        output_folder = os.path.join(
-            parent_folder, 'data', 'output')
-        os.makedirs(output_folder, exist_ok=True)
-
-        # Construct the output CSV file path
-        output_file = os.path.join(output_folder, 'output.csv')
-
         # Calculate sentiment scores and readability scores
         sentiment_scores = self.calculate_sentiment_scores(item['content'])
         readability_scores = self.calculate_readability_scores(item['content'])
 
-        # Add the scores to the item dictionary
-        item['positive_score'] = sentiment_scores['positive_score']
-        item['negative_score'] = sentiment_scores['negative_score']
-        item['polarity_score'] = sentiment_scores['polarity_score']
-        item['subjectivity_score'] = sentiment_scores['subjectivity_score']
-        item['avg_sentence_length'] = readability_scores['avg_sentence_length']
-        item['percentage_of_complex_words'] = readability_scores['percentage_of_complex_words']
-        item['fog_index'] = readability_scores['fog_index']
-        item['avg_number_of_words_per_sentence'] = readability_scores['avg_number_of_words_per_sentence']
-        item['complex_word_count'] = readability_scores['complex_word_count']
-        item['word_count'] = readability_scores['word_count']
-        item['syllable_per_word'] = readability_scores['syllable_per_word']
-        item['personal_pronouns'] = readability_scores['personal_pronouns']
-        item['avg_word_length'] = readability_scores['avg_word_length']
+        # Construct the new row data as a dictionary
+        data = {
+            'URL_ID': [item['url_id']],
+            'URL': [item['url']],
+            'TITLE': [item['title']],
+            'POSITIVE SCORE': [sentiment_scores['positive_score']],
+            'NEGATIVE SCORE': [sentiment_scores['negative_score']],
+            'POLARITY SCORE': [sentiment_scores['polarity_score']],
+            'SUBJECTIVITY SCORE': [sentiment_scores['subjectivity_score']],
+            'AVG SENTENCE LENGTH': [readability_scores['avg_sentence_length']],
+            'PERCENTAGE OF COMPLEX WORDS': [readability_scores['percentage_of_complex_words']],
+            'FOG INDEX': [readability_scores['fog_index']],
+            'AVG NUMBER OF WORDS PER SENTENCE': [readability_scores['avg_number_of_words_per_sentence']],
+            'COMPLEX WORD COUNT': [readability_scores['complex_word_count']],
+            'WORD COUNT': [readability_scores['word_count']],
+            'SYLLABLE PER WORD': [readability_scores['syllable_per_word']],
+            'PERSONAL PRONOUNS': [readability_scores['personal_pronouns']],
+            'AVG WORD LENGTH': [readability_scores['avg_word_length']],
+        }
 
-        # Check if the output CSV file already exists or not
-        # If it exists, append the data to the existing file
-        # If not, create a new file with headers
+        # Create a new DataFrame with the data
+        new_row_df = pd.DataFrame(data)
+
+        # Save the DataFrame to the output CSV file
+        base_path = os.path.abspath(os.path.dirname(__file__))
+        output_folder = os.path.join(base_path, 'data', 'output')
+        os.makedirs(output_folder, exist_ok=True)
+        output_file = os.path.join(output_folder, 'output.csv')
+
+        # Check if the output file exists
         if os.path.exists(output_file):
-            item_df = pd.DataFrame([item])
-            # Remove the content column
-            item_df.drop(columns=['content'], inplace=True)
-            item_df.to_csv(output_file, mode='a', index=False, header=False)
+            # Read the existing DataFrame from 'output.csv'
+            output_df = pd.read_csv(output_file)
+
+            # Concatenate the new row with the existing DataFrame
+            output_df = pd.concat([output_df, new_row_df], ignore_index=True)
+
+            # Sort the DataFrame by 'URL_ID'
+            output_df.sort_values(by='URL_ID', inplace=True)
+
+            # Save the updated DataFrame to the output CSV file
+            output_df.to_csv(output_file, index=False)
         else:
-            item_df = pd.DataFrame([item])
-            # Remove the content column
-            item_df.drop(columns=['content'], inplace=True)
-            item_df.to_csv(output_file, index=False)
+            # If 'output.csv' doesn't exist, create it with the new row DataFrame
+            new_row_df.to_csv(output_file, index=False)
 
         # Save the content to a text file
-        # Get the URL without the "https://" or "http://" part
         url_without_protocol = item['url'].split('://', 1)[-1]
-
-        # Replace forward slashes with underscores in the URL
         url_filename = url_without_protocol.replace('/', '_')
-
-        # Construct the output file path based on the modified URL
         filename = f'{url_filename}.txt'
         output_file_path = os.path.join(output_folder, 'text_files', filename)
-
-        # Save the content to the output file
         with open(output_file_path, 'w', encoding='utf-8') as f:
             f.write(f'{item["title"]}\n')
             f.write('\n'.join(item["content"]))
