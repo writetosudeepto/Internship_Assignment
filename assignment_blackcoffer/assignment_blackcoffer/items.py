@@ -12,7 +12,6 @@ class ArticleItem(scrapy.Item):
     url = scrapy.Field()
     url_id = scrapy.Field()
 
-    # TODO:
     avg_sentence_length = scrapy.Field()
     percentage_of_complex_words = scrapy.Field()
     fog_index = scrapy.Field()
